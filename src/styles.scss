@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
-
+  --bg: #FFFFFF;
+  --bg2: #FAFAFC;
+  --accent: #dddfe1;
 }
 
 
@@ -16,7 +18,7 @@ body {
   font-family: "Inter", sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  font-size: 16px;
+  font-size: 14.5px;
   padding: 4rem;
 }
 img, picture, video, canvas, svg {

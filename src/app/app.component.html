@@ -1,0 +1,124 @@
+<main>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          @for (item of initialData; track $index) {
+          <th>{{ item.name }}</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Oprocentowanie</th>
+          @for (item of initialData; track $index) {
+          <td>{{ item.rate * 100 | number : '0.2-2' }}%</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Koszt wykupu</th>
+          @for (item of initialData; track $index) {
+          <td>{{ item.buyoutCost | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Czas trwania</th>
+          @for (item of initialData; track $index) {
+          <td>{{ item.period }}</td>
+          }
+        </tr>
+        <tr class="annotated-bottom">
+          <th scope="row">Okres kapitalizacji</th>
+          @for (item of initialData; track $index) {
+          <td>{{ item.capitalizationPeriod === 'monthly' ? 'Miesięczny' : 'Roczny' }}</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 1 roku</th>
+          @for (item of initialData; track $index) {
+          <td>{{ calculateReturnAfter(item, 1, false) | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 1 roku z wykupem</th>
+          @for (item of initialData; track $index) {
+          <td>{{ calculateReturnAfter(item, 1, true) | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 2 latach</th>
+          @for (item of initialData; track $index) {
+          <td>{{ calculateReturnAfter(item, 2, false) | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 2 latach z wykupem</th>
+          @for (item of initialData; track $index) {
+          <td>{{ calculateReturnAfter(item, 2, true) | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 3 latach</th>
+          @for (item of initialData; track $index) {
+          <td>{{ calculateReturnAfter(item, 3, false) | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 3 latach z wykupem</th>
+          @for (item of initialData; track $index) {
+          <td>{{ calculateReturnAfter(item, 3, true) | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 4 latach</th>
+          @for (item of initialData; track $index) {
+          <td>{{ calculateReturnAfter(item, 4, false) | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 4 latach z wykupem</th>
+          @for (item of initialData; track $index) {
+          <td>{{ calculateReturnAfter(item, 4, true) | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 6 latach</th>
+          @for (item of initialData; track $index) {
+          <td>{{ calculateReturnAfter(item, 6, false) | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 6 latach z wykupem</th>
+          @for (item of initialData; track $index) {
+          <td>{{ calculateReturnAfter(item, 6, true) | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 10 latach</th>
+          @for (item of initialData; track $index) {
+          <td>{{ calculateReturnAfter(item, 10, false) | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 10 latach z wykupem</th>
+          @for (item of initialData; track $index) {
+          <td>{{ calculateReturnAfter(item, 10, true) | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 12 latach</th>
+          @for (item of initialData; track $index) {
+          <td>{{ calculateReturnAfter(item, 12, false) | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 12 latach z wykupem</th>
+          @for (item of initialData; track $index) {
+          <td>{{ calculateReturnAfter(item, 12, true) | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
