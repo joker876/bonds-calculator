@@ -1,4 +1,14 @@
 <main>
+  <div class="inputs">
+    <div class="field">
+      <label for="cash">Początkowa wartość</label>
+      <input id="cash" type="number" step="100" min="0" [(ngModel)]="startCash" (blur)="onStartCashBlur()">
+    </div>
+    <div class="field">
+      <label for="bonds">Początkowa ilość obligacji</label>
+      <input id="bonds" type="number" step="1" min="0" [(ngModel)]="startBonds" (blur)="onStartBondsBlur()">
+    </div>
+  </div>
   <div class="table-container">
     <table>
       <thead>

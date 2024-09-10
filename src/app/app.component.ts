@@ -1,5 +1,6 @@
 import { DecimalPipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 
 export interface BondItem {
@@ -19,7 +20,7 @@ export type CapitalizationPeriod = (typeof CapitalizationPeriod)[keyof typeof Ca
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, DecimalPipe],
+  imports: [RouterOutlet, DecimalPipe, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -80,6 +81,7 @@ export class AppComponent {
   readonly startBonds = signal<number>(100);
 
   onStartCashBlur() {
+    this.startCash.update(v => Math.floor(v / 100) * 100);
     this.startBonds.set(this.startCash() / 100);
   }
   onStartBondsBlur() {
