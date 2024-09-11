@@ -2,11 +2,11 @@
   <div class="inputs">
     <div class="field">
       <label for="cash">Początkowa wartość</label>
-      <input id="cash" type="number" step="100" min="0" [(ngModel)]="startCash" (blur)="onStartCashBlur()">
+      <input id="cash" type="number" step="100" min="0" [(ngModel)]="startCash" (ngModelChange)="onStartCashBlur()" />
     </div>
     <div class="field">
       <label for="bonds">Początkowa ilość obligacji</label>
-      <input id="bonds" type="number" step="1" min="0" [(ngModel)]="startBonds" (blur)="onStartBondsBlur()">
+      <input id="bonds" type="number" step="1" min="0" [(ngModel)]="startBonds" (ngModelChange)="onStartBondsBlur()" />
     </div>
   </div>
   <div class="table-container">
@@ -14,7 +14,7 @@
       <thead>
         <tr>
           <th></th>
-          @for (item of initialData; track $index) {
+          @for (item of mappedData(); track $index) {
           <th>{{ item.name }}</th>
           }
         </tr>
@@ -22,110 +22,110 @@
       <tbody>
         <tr>
           <th scope="row">Oprocentowanie</th>
-          @for (item of initialData; track $index) {
+          @for (item of mappedData(); track $index) {
           <td>{{ item.rate * 100 | number : '0.2-2' }}%</td>
           }
         </tr>
         <tr>
           <th scope="row">Koszt wykupu</th>
-          @for (item of initialData; track $index) {
+          @for (item of mappedData(); track $index) {
           <td>{{ item.buyoutCost | number : '0.2-2' }} zł</td>
           }
         </tr>
         <tr>
           <th scope="row">Czas trwania</th>
-          @for (item of initialData; track $index) {
+          @for (item of mappedData(); track $index) {
           <td>{{ item.period }}</td>
           }
         </tr>
         <tr class="annotated-bottom">
           <th scope="row">Okres kapitalizacji</th>
-          @for (item of initialData; track $index) {
+          @for (item of mappedData(); track $index) {
           <td>{{ item.capitalizationPeriod === 'monthly' ? 'Miesięczny' : 'Roczny' }}</td>
           }
         </tr>
         <tr>
           <th scope="row">Zysk po 1 roku</th>
-          @for (item of initialData; track $index) {
-          <td>{{ calculateReturnAfter(item, 1, false) | number : '0.2-2' }} zł</td>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year1 | number : '0.2-2' }} zł</td>
           }
         </tr>
         <tr>
           <th scope="row">Zysk po 1 roku z wykupem</th>
-          @for (item of initialData; track $index) {
-          <td>{{ calculateReturnAfter(item, 1, true) | number : '0.2-2' }} zł</td>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year1Buyout | number : '0.2-2' }} zł</td>
           }
         </tr>
         <tr>
           <th scope="row">Zysk po 2 latach</th>
-          @for (item of initialData; track $index) {
-          <td>{{ calculateReturnAfter(item, 2, false) | number : '0.2-2' }} zł</td>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year2 | number : '0.2-2' }} zł</td>
           }
         </tr>
         <tr>
           <th scope="row">Zysk po 2 latach z wykupem</th>
-          @for (item of initialData; track $index) {
-          <td>{{ calculateReturnAfter(item, 2, true) | number : '0.2-2' }} zł</td>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year2Buyout | number : '0.2-2' }} zł</td>
           }
         </tr>
         <tr>
           <th scope="row">Zysk po 3 latach</th>
-          @for (item of initialData; track $index) {
-          <td>{{ calculateReturnAfter(item, 3, false) | number : '0.2-2' }} zł</td>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year3 | number : '0.2-2' }} zł</td>
           }
         </tr>
         <tr>
           <th scope="row">Zysk po 3 latach z wykupem</th>
-          @for (item of initialData; track $index) {
-          <td>{{ calculateReturnAfter(item, 3, true) | number : '0.2-2' }} zł</td>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year3Buyout | number : '0.2-2' }} zł</td>
           }
         </tr>
         <tr>
           <th scope="row">Zysk po 4 latach</th>
-          @for (item of initialData; track $index) {
-          <td>{{ calculateReturnAfter(item, 4, false) | number : '0.2-2' }} zł</td>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year4 | number : '0.2-2' }} zł</td>
           }
         </tr>
         <tr>
           <th scope="row">Zysk po 4 latach z wykupem</th>
-          @for (item of initialData; track $index) {
-          <td>{{ calculateReturnAfter(item, 4, true) | number : '0.2-2' }} zł</td>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year4Buyout | number : '0.2-2' }} zł</td>
           }
         </tr>
         <tr>
           <th scope="row">Zysk po 6 latach</th>
-          @for (item of initialData; track $index) {
-          <td>{{ calculateReturnAfter(item, 6, false) | number : '0.2-2' }} zł</td>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year6 | number : '0.2-2' }} zł</td>
           }
         </tr>
         <tr>
           <th scope="row">Zysk po 6 latach z wykupem</th>
-          @for (item of initialData; track $index) {
-          <td>{{ calculateReturnAfter(item, 6, true) | number : '0.2-2' }} zł</td>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year6Buyout | number : '0.2-2' }} zł</td>
           }
         </tr>
         <tr>
           <th scope="row">Zysk po 10 latach</th>
-          @for (item of initialData; track $index) {
-          <td>{{ calculateReturnAfter(item, 10, false) | number : '0.2-2' }} zł</td>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year10 | number : '0.2-2' }} zł</td>
           }
         </tr>
         <tr>
           <th scope="row">Zysk po 10 latach z wykupem</th>
-          @for (item of initialData; track $index) {
-          <td>{{ calculateReturnAfter(item, 10, true) | number : '0.2-2' }} zł</td>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year10Buyout | number : '0.2-2' }} zł</td>
           }
         </tr>
         <tr>
           <th scope="row">Zysk po 12 latach</th>
-          @for (item of initialData; track $index) {
-          <td>{{ calculateReturnAfter(item, 12, false) | number : '0.2-2' }} zł</td>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year12 | number : '0.2-2' }} zł</td>
           }
         </tr>
         <tr>
           <th scope="row">Zysk po 12 latach z wykupem</th>
-          @for (item of initialData; track $index) {
-          <td>{{ calculateReturnAfter(item, 12, true) | number : '0.2-2' }} zł</td>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year12Buyout | number : '0.2-2' }} zł</td>
           }
         </tr>
       </tbody>
