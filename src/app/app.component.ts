@@ -81,20 +81,31 @@ export class AppComponent {
     return this.initialData.map(item => {
       return {
         ...item,
-        year1: this.calculateReturnAfter(item, 1, false),
-        year1Buyout: this.calculateReturnAfter(item, 1, true),
-        year2: this.calculateReturnAfter(item, 2, false),
-        year2Buyout: this.calculateReturnAfter(item, 2, true),
-        year3: this.calculateReturnAfter(item, 3, false),
-        year3Buyout: this.calculateReturnAfter(item, 3, true),
-        year4: this.calculateReturnAfter(item, 4, false),
-        year4Buyout: this.calculateReturnAfter(item, 4, true),
-        year6: this.calculateReturnAfter(item, 6, false),
-        year6Buyout: this.calculateReturnAfter(item, 6, true),
-        year10: this.calculateReturnAfter(item, 10, false),
-        year10Buyout: this.calculateReturnAfter(item, 10, true),
-        year12: this.calculateReturnAfter(item, 12, false),
-        year12Buyout: this.calculateReturnAfter(item, 12, true),
+        firstPayout: this._getFirstPayout(item),
+        year1: this._calculateReturnAfter(item, 1, false),
+        year1Buyout: this._calculateReturnAfter(item, 1, true),
+        year2: this._calculateReturnAfter(item, 2, false),
+        year2Buyout: this._calculateReturnAfter(item, 2, true),
+        year3: this._calculateReturnAfter(item, 3, false),
+        year3Buyout: this._calculateReturnAfter(item, 3, true),
+        year4: this._calculateReturnAfter(item, 4, false),
+        year4Buyout: this._calculateReturnAfter(item, 4, true),
+        year5: this._calculateReturnAfter(item, 5, false),
+        year5Buyout: this._calculateReturnAfter(item, 5, true),
+        year6: this._calculateReturnAfter(item, 6, false),
+        year6Buyout: this._calculateReturnAfter(item, 6, true),
+        year7: this._calculateReturnAfter(item, 7, false),
+        year7Buyout: this._calculateReturnAfter(item, 7, true),
+        year8: this._calculateReturnAfter(item, 8, false),
+        year8Buyout: this._calculateReturnAfter(item, 8, true),
+        year9: this._calculateReturnAfter(item, 9, false),
+        year9Buyout: this._calculateReturnAfter(item, 9, true),
+        year10: this._calculateReturnAfter(item, 10, false),
+        year10Buyout: this._calculateReturnAfter(item, 10, true),
+        year11: this._calculateReturnAfter(item, 11, false),
+        year11Buyout: this._calculateReturnAfter(item, 11, true),
+        year12: this._calculateReturnAfter(item, 12, false),
+        year12Buyout: this._calculateReturnAfter(item, 12, true),
       }
     })
   })
@@ -113,8 +124,14 @@ export class AppComponent {
   monthlyFilterFn(item: BondItem): boolean {
     return item.capitalizationPeriod === CapitalizationPeriod.Monthly;
   }
-  calculateReturnAfter(item: BondItem, years: number, buyout: boolean): number {
-    const rate = item.capitalizationPeriod === CapitalizationPeriod.Yearly ? item.rate : item.rate / 12;
+  private _getRate(item: BondItem): number {
+    return item.capitalizationPeriod === CapitalizationPeriod.Yearly ? item.rate : item.rate / 12;
+  }
+  private _getFirstPayout(item: BondItem): number {
+    return this._getRate(item) * this.startCash();
+  }
+  private _calculateReturnAfter(item: BondItem, years: number, buyout: boolean): number {
+    const rate = this._getRate(item);
     const subdivisions = item.capitalizationPeriod === CapitalizationPeriod.Yearly ? years : years * 12;
 
     let cash = 0;

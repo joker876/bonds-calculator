@@ -44,6 +44,12 @@
           <td>{{ item.capitalizationPeriod === 'monthly' ? 'Miesięczny' : 'Roczny' }}</td>
           }
         </tr>
+        <tr class="annotated-bottom">
+          <th scope="row">Wysokość pierwszych odsetek</th>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.firstPayout | number : '0.2-2' }} zł</td>
+          }
+        </tr>
         <tr>
           <th scope="row">Zysk po 1 roku</th>
           @for (item of mappedData(); track $index) {
@@ -90,6 +96,18 @@
           <th scope="row">Zysk po 4 latach z wykupem</th>
           @for (item of mappedData(); track $index) {
           <td>{{ item.year4Buyout | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 5 latach</th>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year5 | number : '0.2-2' }} zł</td>
+          }
+        </tr>
+        <tr>
+          <th scope="row">Zysk po 5 latach z wykupem</th>
+          @for (item of mappedData(); track $index) {
+          <td>{{ item.year5Buyout | number : '0.2-2' }} zł</td>
           }
         </tr>
         <tr>
